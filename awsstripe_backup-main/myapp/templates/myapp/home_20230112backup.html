@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+{% load static %}
+{% load bootstrap4 %}
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- <link rel="stylesheet" type="text/css" href="../../css/home.css"> -->
+  <link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}">
+  <!-- <script src="../../js/realtime_clock.js"></script> -->
+  <script  type="text/javascript">function realtimeClock(){
+    
+    var rtClock = new Date;
+    var dname = rtClock.getDay(),
+        mo = rtClock.getMonth(),
+        dnum = rtClock.getDate(),
+        hours = rtClock.getHours(),
+        minutes = rtClock.getMinutes();
+
+    // 00月 00日 0曜日
+    var month = ["1月","2月","3月","4月","5月","6月","7月","8月","9月","10月","11月","12月"];
+    var week = ["日曜日","月曜日","火曜日","水曜日","木曜日","金曜日","土曜日"];
+    var days = [
+        "1日","2日","3日","4日","5日","6日","7日","8日","9日","10日",
+        "11日","12日","13日","14日","15日","16日","17日","18日","19日","20日",
+        "21日","22日","23日","24日","25日","26日","27日","28日","29日","30日",
+        "31日"];
+    var ids = ["month", "daynum", "dayname"];
+    var values = [month[mo], days[dnum-1], week[dname]];
+    for(var i = 0; i < ids.length; i++)
+    document.getElementById(ids[i]).firstChild.nodeValue = values[i];
+
+    // Pad the hours, minutes and seconds with leading zeros
+    hours = ("0" + hours).slice(-2);
+    minutes = ("0" + minutes).slice(-2);
+
+    // Display the clock
+    document.getElementById('clock').innerHTML =
+        hours + ":" + minutes;
+    var t = setTimeout(realtimeClock, 500); 
+}</script>
+  
+  <title>メインメニュー</title>
+</head>
+<body onload="realtimeClock()">
+
+  <div class="main-outer">
+    
+    <div class="top-weather-time-outer">
+      
+      <div class="top-left-weather-outer">
+        <!-- Weather Widget -->
+        <div class="widget">
+          <div class="left">
+            <!-- <img src="../../weather_icons/animated/cloudy-day-1.svg" class="icon"> -->
+            <img src="{% static 'weather_icons/animated/cloudy-day-1.svg' %}" class="icon">
+            <h5 class="weather-status">晴れのち曇り</h5>
+          </div>
+
+          <div class="right">
+            <h5 class="city">稚内</h5>
+            <h5 class="degree">-30&#176;C</h5>
+          </div>
+        </div>
+
+      </div>
+      
+      <div class="top-right-time-outer">
+        <div class="top">
+          <div class="date">
+            <span id="month">Month</span>
+            <span id="daynum">00</span>
+            <span id="dayname">Day</span>
+          </div>
+
+
+        </div>
+        
+        <div class="bottom">
+          <h5 id="clock"></h5>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="middle-call-list-outer">
+      <!-- {{ user_image_model.images }}<br>
+      <img src='{{ MEDIA_URL }}{{user_image_model.images}}' width=200> -->
+
+
+      <span>{% if  subscription_id != 123 %}</span>
+
+        <span>{% for list in sample %}</span>
+          <tr>
+            <td><span>{{ list }}</span></td>
+            <td>
+              <!-- <div class="phone-logo"> -->
+                  <!-- <img src="{% static 'images/phone.png' %}" alt=""> -->
+              <!-- </div> -->
+              <div class="to-call-user">
+                <!-- <p><a href="skype:{{ list.user_skype_id.skype_id }}?call">{{ list.username }}電話する</a>  <a href="{% url  'chat' list.id  %}">チャットする</a></p> -->
+                <!-- <p><a href="skype:{{ list.user_skype_id.skype_id }}?call">{{ list.username }}電話する</a></p> -->
+                <!-- <img src='{{ MEDIA_URL }}{{user_image_model.images}}' width=200> -->
+                <p><a href="skype:{{ list.skype_id }}?call"><img src='{{ MEDIA_URL }}{{list.images}}' width=80>{{ list.user.username }}電話する</a></p>
+                <!-- <br>
+                <br> -->
+
+              </div>
+            </td>
+          </tr>
+        <span>{% endfor %}</span>
+
+    </div>
+
+    <div class="bottom-userinfo-loginout-outer">
+      <span>{% if user.is_authenticated %}</span>
+        <div class="left-profile">
+          <!-- <img src="../../../images/user_profile_1.jpg" alt=""> -->
+          <!-- <img src="{% static 'images/user_profile_1.jpg' %}" alt=""> -->
+          <img src='{{ MEDIA_URL }}{{user_image_model.images}}' width=200>
+
+        </div>
+      <span>{% endif %}</span>
+    <div class="right-top-userinfo">
+        <span>{% if user.is_authenticated %}</span>
+        <div class="top-last-first-name">
+          <p>{{ user.last_name }} {{ user.first_name }}さんがログイン中です</p> 
+        </div>
+        <div class="middle-user-name">
+          <p>{{ user.username }}</p>
+        </div>
+        <div class="bottom-user-email">
+          <p>{{ user.email }}</p> 
+        </div>
+
+        <div class="bottom-logout">
+          <a href="{% url 'logout' %}">ログアウト</a>
+        </div>
+        <span>{% else %}</span>
+        <div class="bottom-login">
+          <a href="{% url 'login' %}">ログインする</a>
+        </div>
+        <span>{% endif %}</span>
+      </div>
+    </div>
+
+
+      {% if user.is_authenticated %}
+        {% if  subscription_id != 123 %}
+        <div class="bottom-cancel-subscription-outer">
+          <div class="cancel-form">
+            <form action="{% url 'stop_subscription_session' %}" method="POST">
+              <!-- <input type="hidden" name="subscriptionId" value="{{ subscription_id }}" /> -->
+              <input name="subscriptionId" value="{{ subscription_id }}" />
+              <!-- <button class="btn btn-outline-info btn-lg" type="submit">利用キャンセル</button> -->
+              <button type="submit">利用キャンセル</button>
+            </form>
+          </div>
+        {% endif %}
+      {% endif %}
+
+      <span class="django">{% else %}</span>
+        <div class="bottom-cancel-subscription-outer">
+          <div class="subscription-form">
+            <div class="subscription-text">
+              <a href="{% url 'product-top-page' %}">利用登録</a>
+              <br>
+              <br>
+              <a href="{% url 'logout' %}">ログアウト</a>
+            </div>
+          </div>
+        </div>
+      <span class="django">{% endif %} </span>
+    </div>
+  
+  </div>
+
+</body>
+</html>
+
+
+<!-- 
+git add .
+git commit -m "css"
+git push origin master
+ -->
+
+
+
+
+       <!-- ユ：{{ sample }}<br> -->
+
+      <!-- {% for list in sample %}
+      <tr>
+          <td>{{ list }}</td>
+          <td><a href="skype:{{ list }}?call">Call{{ list }}</a></td>
+      </tr>
+      {% endfor %} -->
+
+
+
+      <!-- <h1>googleログイン</h1>
+      ユーザ名：{{ user.first_name }} , {{ user.last_name }}<br>
+      <a href="{% url 'social:begin' 'google-oauth2' %}">Googleでログイン</a><br>
+      <a class="lead" href="{% url 'logout' %}">Log out</a> -->
+
+      <!-- <h1>Skype</h1>
+      <a href="skype:echo123?call">Call the Skype Echo / Sound Test Service</a>
+      <br>
+      <p>ビデオ</p>
+      <a href="skype:echo123?call&amp;video=true">Call the Skype Echo / Sound Test Service</a>
+      <br>
+      <p>uenotomoki</p>
+      <a href="skype:live:.cid.f7ef235c9ea21c9f?call">Call the Skype uenotomoki of yazakiPC</a>
+      <br>
+      <p>ビデオ</p>
+      <a href="skype:live:.cid.f7ef235c9ea21c9f?call&amp;video=true">Call the Skype uenotomoki of yazakiPC</a>
+
+
+      <br>
+      If your call specifies multiple participants, the individual identities—Skype Names or phone numbers—must be separated with semicolons; for example:
+      participant1;participant2;participant3
+      <br>
+      Example: Conference, no topic
+      skype:skype.test.user.1;skype.test.user.2;skype.test.user.3?call
+      <br>
+      Example: Conference, setting the topic
+      skype:skype.test.user.1;skype.test.user.2;+16505550123?call&amp;topic=Geek%20Conspiracy
+      <br>
+      <br>
+      <br>
+      <h1>Line</h1>
+      <a href="https://line.me/R/calls">line画面</a> -->

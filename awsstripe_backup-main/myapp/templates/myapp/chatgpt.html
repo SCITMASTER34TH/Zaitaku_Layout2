@@ -1,0 +1,20 @@
+chatgpt
+<br>
+
+<form method="POST" action="{% url 'chatgpt' %}">
+    {% csrf_token %}
+    <input type="text" name="chatgpt">
+    <button type="submit" class="btn btn-primary" name="button">
+        送信
+    </button>
+</form>
+<br>
+
+<table>
+    {% for list in chatgpt %}
+    <tr>
+        <td>{{ list.chatgpt_user }}</td>
+        <td>{{ list.chatgpt_cp }}</td>
+    </tr>
+    {% endfor %}
+</table>

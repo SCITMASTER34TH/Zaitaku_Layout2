@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load widget_tweaks %}
+{% load bootstrap4 %}
+    <div class="row">
+        <div class="col-sm-6 offset-sm-3">
+            <h1 class="mb-4">ユーザー登録</h1>
+            {#  ここ{% url 'account_signup' %}は、Allauthを使う際の定型文#}
+            <div class="container" style="padding:20px 0">
+            <form method="POST" action="{% url 'account_signup' %}" enctype="multipart/form-data">
+                {% csrf_token %}
+                {% bootstrap_form form layout="horizontal" %}
+                <!-- {% bootstrap_form form %} # 編集 -->
+                <button type="submit" class="btn btn-primary" name="button">
+                    登録
+                </button>
+            </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

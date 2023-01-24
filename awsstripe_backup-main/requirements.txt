@@ -1,0 +1,17 @@
+Django>=2.0,<3.0
+psycopg2==2.8.6
+redis
+social-auth-app-django
+social-auth-core
+asgiref
+pytz
+sqlparse==0.4.2
+stripe
+django-allauth
+django-bootstrap4
+django-widget-tweaks
+boto3
+django-storages
+Pillow
+openai
+psycopg2-binary

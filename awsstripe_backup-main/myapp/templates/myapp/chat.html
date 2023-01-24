@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+{% load static %}
+{% load bootstrap4 %}
+<html lang="en">
+<head>
+
+<link href="http://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'css/chat_room.css' %}">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" type="text/css" rel="stylesheet">
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script type="text/javascript"></script>
+<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+
+
+
+<!-- <h1>user_id   :{{ user_id }}</h1>
+<h1>someone_id:{{ someone_id }}</h1>
+
+<form action="{% url 'chat' someone_id %}" method="POST">
+    {% csrf_token %}
+    <input type="text" name="user_id" value="{{ user_id }}" />
+    <input type="text" name="someone_id" value="{{ someone_id }}" />
+    <input type="text" name="chat_context" />
+    <button class="btn btn-outline-info btn-lg" type="submit">送信</button>
+</form>
+
+<table>
+    {% for list in chat_model %}
+    <tr>
+        <td>{{ list.user.email }}</td>
+        <td>{{ list.someone.email }}</td>
+        <td>{{ list.chat_context }}</td>
+        <td>{{ list.chated_at }}</td>
+    </tr>
+    {% endfor %}
+</table> -->
+
+
+</head>
+<body>
+
+
+<div class="mesgs">
+
+    <div class="navbar">
+        <div class="left"><a href="{% url 'top' %}" class="btn btn-primary w-15px">戻る</a>{{ someone.username }}さん</div>
+        <div class="navbar-right">
+            <a href="skype:{{ someone.user_skype_id.skype_id }}?call" class="btn btn-primary">電話する</a>
+        </div>
+    </div>
+
+    <div class="type_msg">
+        <form action="{% url 'chat' someone_id %}" method="post" class="form-group" id="chat-box">
+            {% csrf_token %}
+            <div class="input_msg_write">
+                <input type="text" class="write_msg" placeholder="メッセージを送信..." name="chat_context" id="msg_field">
+                <button type="submit" name="send" class="msg_send_btn"><i class="fa fa-paper-plane-o"
+                        aria-hidden="true"></i></button>
+            </div>
+        </form>
+    </div>
+
+    <div class="msg_history" id="board">
+        {% for message in chat_model %}
+        {% if someone_id == message.user.id %}
+        <div class="incoming_msg">
+            <div class="received_msg">
+                <div class="received_withd_msg">
+                    <!-- {{ message.user.username }} -->
+                    <p>{{message.chat_context}}</p>
+                    <span class="time_date">{{message.chated_at}}</span>
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <div class="outgoing_msg">
+            <div class="sent_msg">
+                <!-- {{ message.user.username }} -->
+                <p>{{message.chat_context}}</p>
+                <span class="time_date">{{message.chated_at}}</span>
+            </div>
+        </div>
+        {% endif %}
+        {% endfor %}
+    </div>
+</div>

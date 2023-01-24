@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+{% load static %}
+{% load bootstrap4 %}
+<html>
+
+<head>
+    <title>商品トップ</title>
+    <!-- <link rel="stylesheet" href='{% static "style.css" %}'/> -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?version=3.52.1&features=fetch"></script>
+    <script src="https://js.stripe.com/v3/"></script>
+
+
+    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet">
+    <!-- <link rel="stylesheet" href="{% static 'css/chat_room.css' %}"> -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" type="text/css" rel="stylesheet">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript"></script>
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="{% static 'css/product-top-page.css' %}">
+</head>
+
+<body>
+    <section>
+      <h1>商品一覧</h1>
+      <!-- <hr /> -->
+        <div class="product">
+            <div class="description">
+                <!-- 商品一覧をループで表示 -->
+                {% for product in product_list %}
+                  <!-- <h2>{{ product.name }}</h2> -->
+                  <!-- <picture>
+                  <img src="{{product.file.url}}" alt="image" style="width:auto;">
+                  </picture> -->
+                  <!-- <div>{{ product.description }}</div> -->
+
+                <!-- 商品に紐づく価格情報を表示 -->
+                {% for price_data in product.Prices.all %}
+                  <h4>価格：¥{{ price_data.get_display_price }}</h4>
+                  <div class="container">
+                  <form action="{% url 'create-checkout-session' product.id %}" method="POST">
+                    {% csrf_token %}
+                    <!-- <button type="submit">購入画面に進む</button> -->
+                    <button class="btn btn-outline-info btn-lg" type="submit">購入画面に進む</button>
+                  </form>
+                </div>
+                {% endfor %}
+                {% endfor %}
+            </div>
+        </div>
+
+
+    </section>
+</body>
+</html>

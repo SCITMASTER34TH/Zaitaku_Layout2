@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+{% load static %}
+{% load bootstrap4 %}
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- <link rel="stylesheet" type="text/css" href="../../css/home.css"> -->
+  <!-- <link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}"> -->
+  <!-- <script src="../../js/realtime_clock.js"></script> -->
+  <script  type="text/javascript">function realtimeClock(){
+
+    var rtClock = new Date;
+    var dname = rtClock.getDay(),
+        mo = rtClock.getMonth(),
+        dnum = rtClock.getDate(),
+        hours = rtClock.getHours(),
+        minutes = rtClock.getMinutes();
+
+    // 00月 00日 0曜日
+    var month = ["1月","2月","3月","4月","5月","6月","7月","8月","9月","10月","11月","12月"];
+    var week = ["日曜日","月曜日","火曜日","水曜日","木曜日","金曜日","土曜日"];
+    var days = [
+        "1日","2日","3日","4日","5日","6日","7日","8日","9日","10日",
+        "11日","12日","13日","14日","15日","16日","17日","18日","19日","20日",
+        "21日","22日","23日","24日","25日","26日","27日","28日","29日","30日",
+        "31日"];
+    var ids = ["month", "daynum", "dayname"];
+    var values = [month[mo], days[dnum-1], week[dname]];
+    for(var i = 0; i < ids.length; i++)
+    document.getElementById(ids[i]).firstChild.nodeValue = values[i];
+
+    // Pad the hours, minutes and seconds with leading zeros
+    hours = ("0" + hours).slice(-2);
+    minutes = ("0" + minutes).slice(-2);
+
+    // Display the clock
+    document.getElementById('clock').innerHTML =
+        hours + ":" + minutes;
+    var t = setTimeout(realtimeClock, 500); 
+}</script>
+
+<style>
+body{
+  /* 20230123 */
+  /* position: fixed; */
+  /* width: 810px;*/
+  /* height: 3000px; */
+  /* background: #242424; */
+  background: #242424;
+}
+
+.main-outer{
+    /* 20230123 */
+    /* position: fixed; */
+    /* width: 810px;*/
+    /* height: 3000px; */
+    /* background: #242424; */
+    background: #242424;
+}
+
+.top{
+    position: fixed;
+    top: 0;
+    /* position: sticky;
+    top: 100vh;*/
+    width: 100%;
+    display: flex;
+    /* background: #44aa33; */
+    /* text-align: center; */
+    z-index: 100;
+}
+
+.top-weather-time-outer{
+    position: relative;
+    display: flex;
+    width: 800px;
+    height: 140px;
+    background: none;
+    margin: auto;
+    margin-top: 5px;
+    border-radius: 5px;
+}
+
+.top-left-weather-outer{
+    position: relative;
+    width: 395px;
+    height: 140px;
+    margin: 0 2.5px 0 0;
+    background: rgba(35, 35, 35, 0.75);
+    border-radius: 5px;
+    box-shadow: 2px 2px 2px 0 rgba(0, 0, 0, 0.5);
+}
+
+.top-left-weather-outer *{
+    background: rgba(46, 46, 46, 1);
+    border-radius: 5px;
+}
+
+.widget{
+    position: absolute;
+    display: flex;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 395px;
+    height: 140px;
+}
+
+.widget .left{
+    position: relative;
+    left: 0;
+    width: 200px;
+}
+
+.widget .right{
+    position: relative;
+    right: 0;
+    width: 200px;
+    color: #fff;    
+}
+
+.icon{
+    width: 50%;
+    margin-bottom: -15px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.weather-status{
+    color: #fff;
+    text-align: center;
+    margin-top: 0;
+    font-size: 1.7em;
+}
+
+.widget .right .city{
+    font-size: 1.5em;
+    text-align: center;
+    margin-top: 15px;
+    text-shadow: 1px 1px 5px #707070;
+}
+
+.widget .right .degree{
+    font-size: 3.5em;
+    font-weight: bold;
+    text-align: center;
+    margin-top: -40px;
+    text-shadow: 1px 1px 5px #707070;
+}
+
+.top-right-time-outer{
+    position: relative;
+    width: 400px;
+    height: 140px;
+    margin: 0 0 0 2.5px;
+    background: #464646;
+    border-radius: 5px;
+    box-shadow: 2px 2px 2px 0 rgba(0, 0, 0, 0.5);
+}
+
+.top-right-time-outer *{
+    background: rgba(35, 35, 35, 0.75);
+}
+
+.top-right-time-outer .top{
+    position: relative;
+    width: 400px;
+    height: 40px;
+    border-radius: 5px 5px 0 0;
+}
+
+.top-right-time-outer .top .date{
+    position: relative;
+    width: 400px;
+    height: 40px;
+    color: #fff;
+    text-align: center;
+    justify-content: center;
+    background: none;
+    transform: translate(0, 30%);
+}
+
+.top-right-time-outer .top .date span{
+    background: none;
+}
+
+.top-right-time-outer .bottom{
+    position: relative;
+    width: 400px;
+    height: 100px;
+    margin-top: 0;
+    border-radius: 0 0 5px 5px;
+}
+
+.top-right-time-outer .bottom h5{
+    position: relative;
+    color: #fff;
+    text-align: center;
+    margin: auto;
+    margin-top: 1;
+    font-size: 6em;
+    font-weight: 700;
+    width: 300px;
+    height: 90px;
+    transform: translate(0, -35%);
+    background: none;
+}
+
+.middle-call-list-outer{
+    position: relative;
+    width: 800px;
+    /* height: 575px; */
+    background: #272727;
+    margin: auto;
+    margin-top: 5px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
+}
+
+.middle-call-list-outer span{
+    display: none;
+}
+
+/* .middle-call-list-outer .phone-logo{
+    width: 400px;
+    height: 400px;
+    border-radius: 100%;
+    margin: auto;
+    overflow: hidden;
+    transform: translate(0%, 10%);
+} */
+
+.middle-call-list-outer .phone-logo img{
+    transform: translate(-10%, -10%);
+}
+
+.middle-call-list-outer .to-call-user{
+    color: #fff;
+    background: #272727;
+}
+
+.middle-call-list-outer .to-call-user p{
+    /* font-size: 2em; */
+    font-size: 1em;
+    /* font-weight: 500; */
+    font-weight: 300;
+    background: #272727;
+    /* width: 800px; */
+    width: 600px;
+    margin: auto;
+    /* text-align: center; */
+    text-align: left;
+    justify-content: center;
+    transform: translate(0%, 150%);
+    border-radius: 5px;
+}
+
+.middle-call-list-outer .to-call-user a{
+    font-size: 2em;
+    font-weight: 500;
+    /* background: #272727; */
+    color: #fff;
+    background: #387f3f;
+    width: 800px;
+    margin: auto;
+    text-align: center;
+    justify-content: center;
+    transform: translate(0%, 150%);
+    border-radius: 5px;
+}
+
+.middle-call-list-outer p{
+    font-size: 1em;
+    font-weight: 300;
+    background: #272727;
+    width: 600px;
+    margin: auto;
+    text-align: left;
+    justify-content: center;
+    /* transform: translate(0%, 150%); */
+    border-radius: 5px;
+}
+
+.middle-call-list-outer a{
+    font-size: 2em;
+    font-weight: 500;
+    color: #fff;
+    background: #387f3f;
+    width: 800px;
+    margin: auto;
+    text-align: center;
+    justify-content: center;
+    /* transform: translate(0%, 150%); */
+    border-radius: 5px;
+}
+
+footer{
+    position: fixed;
+    bottom: 0;
+    /* position: sticky;
+    top: 100vh;*/
+    width: 100%;
+    /* background: #44aa33; */
+    /* text-align: center; */
+}
+
+.bottom-userinfo-loginout-outer{
+    position: relative;
+    display: flex;
+    width: 800px;
+    height: 200px;
+    background: #272727;
+    margin: auto;
+    margin-top: 5px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
+}
+
+
+.bottom-userinfo-loginout-outer .left-profile{
+    position: relative;
+    width: 180px;
+    height: 180px;
+    margin: auto;
+    background: #999999;
+    border-radius: 100%;
+    overflow: hidden;
+}
+
+.bottom-userinfo-loginout-outer .left-profile img{
+    width: 280px;
+    height: 180px;
+    transform: translate(-17%, 0%);
+    margin: auto;
+    background: #272727;
+}
+
+.bottom-userinfo-loginout-outer .right-top-userinfo{
+    position: relative;
+    margin-left: 5px;
+    width: 595px;
+    height: 140px;
+    background: #272727;
+    border-radius: 5px;
+}
+
+.bottom-userinfo-loginout-outer .right-top-userinfo span{
+    display: none;
+}
+
+.bottom-userinfo-loginout-outer .right-top-userinfo p{
+    background: #272727;
+}
+
+.bottom-userinfo-loginout-outer .right-top-userinfo .top-last-first-name{
+    color: #fff;
+    font-size: 1.25em;
+    font-weight: 700;
+}
+
+.bottom-userinfo-loginout-outer .right-top-userinfo .middle-user-name,
+.bottom-userinfo-loginout-outer .right-top-userinfo .bottom-user-email{
+    color: #cacaca;
+    font-size: 0.75em;
+    font-weight: 300;
+}
+
+.bottom-userinfo-loginout-outer .right-top-userinfo .middle-user-name{
+    transform: translate(0, -20%);
+}
+
+.bottom-userinfo-loginout-outer .right-top-userinfo .bottom-user-email{
+    transform: translate(0, -40%);
+}
+
+
+.bottom-userinfo-loginout-outer .right-top-userinfo .bottom-logout{
+    width: 180px;
+    height: 50px;
+    background: #387f3f;
+    border-style: none;
+    border-radius: 5px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
+}
+
+.bottom-userinfo-loginout-outer .right-top-userinfo .bottom-logout a{
+    position: relative;
+    color: #fff;
+    font-size: 1.8em;
+    margin-left: 20px;
+    background: #387f3f;
+    text-decoration: none;
+    text-align: center;
+    justify-content: center;
+    border-radius: 5px;
+}
+
+.bottom-userinfo-loginout-outer .right-top-userinfo .bottom-login{
+    /* 20230123 */
+    /* position: fixed; */
+    transform: translate(180%, 1720%);
+    width: 230px;
+    height: 50px;
+    background: #387f3f;
+    border-style: none;
+    border-radius: 5px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
+}
+
+.bottom-userinfo-loginout-outer .right-top-userinfo .bottom-login a{
+    color: #fff;
+    font-size: 1.8em;
+    margin-left: 25px;
+    background: #387f3f;
+    text-decoration: none;
+    text-align: center;
+    justify-content: center;
+}
+
+.bottom-cancel-subscription-outer{
+    position: relative;
+    display: flex;
+    width: 800px;
+    height: 70px;
+    background: #272727;
+    margin: auto;
+    margin-top: 5px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
+}
+
+.bottom-cancel-subscription-outer .cancel-form {
+    position: relative;
+    display: flex;
+    height: 70px;
+}
+
+.bottom-cancel-subscription-outer .cancel-form form{
+    background: #272727;
+    width: 600px;
+    height: 70px;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+}
+
+.bottom-cancel-subscription-outer .cancel-form input,
+.bottom-cancel-subscription-outer .cancel-form button{
+    color: #fff;
+    transform: translate(0, 20%);
+    font-size: 1.8em;
+    background: #464646;
+    border-style: none;
+    border-radius: 5px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
+}
+
+.bottom-cancel-subscription-outer .cancel-form input{
+    width: 260px;
+    height: 36px;
+    margin: 0 7.5px 0 15px;
+    transform: translate(0, 20%);
+}
+
+.bottom-cancel-subscription-outer .cancel-form button{
+    background: #387f3f;
+    width: 300px;
+    height: 50px;
+    margin: 0 15px 0 7.5px;
+}
+
+.bottom-cancel-subscription-outer .cancel-form button:hover{
+    cursor: pointer;
+}
+
+.bottom-cancel-subscription-outer .subscription-form span{
+    display: none;
+}
+
+.bottom-cancel-subscription-outer .subscription-form{
+    position: relative;
+    display: flex;
+    width: 180px;
+    height: 50px;
+    text-align: center;
+    justify-content: center;
+    transform: translate(5%, 20%);
+    font-size: 1.6em;
+    font-weight: 700;
+    border-style: none;
+}
+
+.bottom-cancel-subscription-outer .subscription-form .subscription-text{
+    width: 180px;
+    height: 50px;
+    background: #387f3f;
+    border-style: none;
+    border-radius: 5px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
+    color: #fff;
+}
+
+.bottom-cancel-subscription-outer .subscription-form .subscription-text a{
+    color: #fff;
+    font-size: 1.2em;
+    background: #387f3f;
+    width: 180px;
+    height: 60px;
+    text-decoration: none;
+    text-align: center;
+    justify-content: center;
+    border-radius: 5px;
+}
+
+.bottom-cancel-subscription-outer .subscription-form .subscription-text p{
+    color: #fff;
+    /* font-size: 2em; */
+    font-size: 1em;
+    /* font-weight: 500; */
+    font-weight: 300;
+    /* background: #272727; */
+    background: #387f3f;
+    /* width: 800px; */
+    width: 600px;
+    margin: auto;
+    /* text-align: center; */
+    text-align: left;
+    justify-content: center;
+    transform: translate(0%, 150%);
+    border-radius: 5px;
+}
+
+
+
+</style>
+
+
+
+  
+  <title>メインメニュー</title>
+</head>
+<body onload="realtimeClock()">
+
+  <div class="main-outer">
+    
+    <div class="top">
+
+      <div class="top-weather-time-outer">
+        <div class="top-left-weather-outer">
+          <div class="widget">
+            <div class="left">
+              <img src="{% static 'weather_icons/animated/cloudy-day-1.svg' %}" class="icon">
+              <!-- <h5 class="weather-status">晴れのち曇り</h5> -->
+              <h5 class="weather-status">{{ weather_0_description }}</h5>
+            </div>
+
+            <div class="right">
+              <!-- <h5 class="city">稚内</h5> -->
+              <h5 class="city">{{ weather_name }}</h5>
+              <!-- <h5 class="degree">-30&#176;C</h5> -->
+              <h5 class="degree">{{ weather_main_temp }} &#176;C</h5>
+            </div>
+          </div>
+        </div>
+        
+        <div class="top-right-time-outer">
+          <div class="top">
+            <div class="date">
+              <span id="month">Month</span>
+              <span id="daynum">00</span>
+              <span id="dayname">Day</span>
+            </div>
+          </div>
+          
+          <div class="bottom">
+            <h5 id="clock"></h5>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    {% if  subscription_id != 123 %}
+    <div class="middle-call-list-outer">
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+        <span>{% for list in sample %}</span>
+          <tr>
+            <td><span>{{ list }}</span></td>
+            <td>
+              <!-- <div class="to-call-user"> -->
+                <p><a href="skype:{{ list.skype_id }}?call"><img src='{{ MEDIA_URL }}{{list.images}}' width=80>{{ list.user.username }}電話する</a></p>
+              <!-- </div> -->
+            </td>
+          </tr>
+        <span>{% endfor %}</span>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+    </div>
+    {% endif %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <footer>
+    
+    <!-- ログインユーザのアイコン -->
+    <div class="bottom-userinfo-loginout-outer">
+      <div class="left-profile">
+        <img src='{{ MEDIA_URL }}{{user_image_model.images}}' width=200>
+      </div>
+
+      <div class="right-top-userinfo">
+          <div class="top-last-first-name">
+            <p>{{ user.last_name }} {{ user.first_name }}さんがログイン中です</p> 
+          </div>
+          <div class="middle-user-name">
+            <p>{{ user.username }}</p>
+          </div>
+          <div class="bottom-user-email">
+            <p>{{ user.email }}</p> 
+          </div>
+
+          <div class="bottom-logout">
+            <a href="{% url 'logout' %}">ログアウト</a>
+          </div>
+      </div>
+    </div>
+
+      {% if  subscription_id != 123 %}
+      <div class="bottom-cancel-subscription-outer">
+        <div class="cancel-form">
+          <form action="{% url 'stop_subscription_session' %}" method="POST">
+            <input name="subscriptionId" value="{{ subscription_id }}" />
+            <button type="submit">利用キャンセル</button>
+          </form>
+        </div>
+      </div>
+
+      {% else %}
+        <div class="bottom-cancel-subscription-outer">
+          <div class="subscription-form">
+            <div class="subscription-text">
+              <a href="{% url 'product-top-page' %}">利用登録</a>
+              <br>
+              <br>
+              <a href="{% url 'logout' %}">ログアウト</a>
+            </div>
+          </div>
+        </div>
+      {% endif %}
+
+  
+  </div>
+
+    </footer>
+
+
+
+
+
+
+
+
+  <div>
+
+
+
+
+
+
+
+
+    <!-- ログインユーザのアイコン
+    <div class="bottom-userinfo-loginout-outer">
+        <div class="left-profile">
+          <img src='{{ MEDIA_URL }}{{user_image_model.images}}' width=200>
+        </div>
+
+    <div class="right-top-userinfo">
+        <div class="top-last-first-name">
+          <p>{{ user.last_name }} {{ user.first_name }}さんがログイン中です</p> 
+        </div>
+        <div class="middle-user-name">
+          <p>{{ user.username }}</p>
+        </div>
+        <div class="bottom-user-email">
+          <p>{{ user.email }}</p> 
+        </div>
+
+        <div class="bottom-logout">
+          <a href="{% url 'logout' %}">ログアウト</a>
+        </div>
+      </div>
+    </div>
+        {% if  subscription_id != 123 %}
+        <div class="bottom-cancel-subscription-outer">
+          <div class="cancel-form">
+            <form action="{% url 'stop_subscription_session' %}" method="POST">
+              <input name="subscriptionId" value="{{ subscription_id }}" />
+              <button type="submit">利用キャンセル</button>
+            </form>
+          </div>
+        {% endif %}
+    </div> -->
+
+
+</body>
+</html>

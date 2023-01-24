@@ -1,0 +1,86 @@
+{% extends 'myapp/base.html' %}
+{% block content %}
+
+{% load static %}
+<link href="http://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'css/chat_room.css' %}">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" type="text/css" rel="stylesheet">
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script type="text/javascript"></script>
+<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+
+{% if user.is_authenticated %}
+<!-- <h1>{{ user.username }}</h1> -->
+<br>
+{% if  subscription_id != 123 %}
+
+<div class="messaging">
+  <div class="inbox_msg">
+    <div class="inbox_people">
+      <div class="headind_srch">
+        <div class="recent_heading">
+          <h5>ユーザ一覧</h5>
+        </div>
+      </div>
+      <div class="inbox_chat">
+        {% for friend in sample %}
+        <div class="chat_list">
+          <div class="chat_people">
+            <div class="chat_ib">
+              <a href="{% url  'chat' friend.id  %}"><h5>{{ friend.username }}</h5></a>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+        </div>
+    </div>
+  </div>
+
+  <!-- <div class="container">
+      <h5>ユーザ一覧</h5>
+      {% for friend in sample %}
+        <p><a href="{% url  'chat' friend.id  %}"><h5>{{ friend.username }}</h5></a></p>
+      {% endfor %}
+    </div> -->
+
+</div></div>
+
+
+<div>
+  <!-- {% for list in sample %}
+  <tr>
+      <td>{{ list }}</td>
+      <td><a href="skype:{{ list.user_skype_id.skype_id }}?call">{{ list.first_name }} {{ list.last_name }}に電話する。メールアドレス：({{ list.email }})</a></td>
+      <td><a href="{% url 'chat' list.id %}">{{ list.first_name }} {{ list.last_name }}にチャットする。メールアドレス：({{ list.email }})</a></td>
+  </tr>
+  {% endfor %} -->
+
+<form action="{% url 'stop_subscription_session' %}" method="POST">
+  <!-- <input type="hidden" name="subscriptionId" value="{{ subscription_id }}" /> -->
+  <input name="subscriptionId" value="{{ subscription_id }}" />
+  <!-- <input name="orderName" value="{{ order_name }}" /> -->
+  <button class="btn btn-outline-info btn-lg" type="submit">定期利用をキャンセルする</button>
+</form>
+</div>
+
+{% else %}
+  <!-- <a href="{% url 'product-top-page' %}">サブスクリプション登録する</a> -->
+  <!-- <a class="button" role="button" href="{% url 'product-top-page' %}">サブスクリプション登録する</a> -->
+  <p class="text-center">
+    <a href="{% url 'product-top-page' %}" class="btn btn-primary btn-lg">サブスクリプション登録する</a>
+  </p>
+{% endif %}
+
+{% else %}
+<div class="row">
+  <div class="col-sm-6 offset-sm-3">
+    <!-- <h1>メインメニュー</h1>
+    <p>google認証にてログイン</p> -->
+    <!-- <a href="{% url 'login' %}">ログインする</a> -->
+    <a href="{% url 'login' %}" class="btn btn-primary btn-lg">ログイン</a>
+  </div>
+</div>
+{% endif %}
+
+{% endblock %}

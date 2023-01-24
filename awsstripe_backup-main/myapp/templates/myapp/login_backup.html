@@ -1,0 +1,133 @@
+{% extends 'myapp/base.html' %}
+{% block content %}
+
+{% load static %}
+<link href="http://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'css/chat_room.css' %}">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" type="text/css" rel="stylesheet">
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script type="text/javascript"></script>
+<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+
+    <!-- <meta charset="utf-8" />
+    <title>Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+    <style>
+      body{
+          background-position: center;
+          background-size: cover;
+          height: 750px;
+          background-repeat: no-repeat
+      }
+
+      .navbar{
+          background-color: #5053fc;
+          overflow: hidden;
+          float: left;
+          width: 100%;
+          text-align: center;
+          text-decoration: none;
+          font-size: 18px;
+          padding: 8px 8px;
+          color: white
+      }
+
+      .navbar a:hover{
+          text-decoration: none;
+      }
+
+      .navbar-right a{
+          margin-left: 16px;
+      }
+
+    </style>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script> -->
+
+
+  <!-- <div class="navbar">
+    <a href="/" class="text-white">ログイン方法を選択してください</a>
+    <div class="navbar-right">
+        right str
+    </div>
+  </div> -->
+
+
+
+  <div class="messaging">
+    <div class="inbox_msg">
+      <div class="inbox_people">
+        <div class="headind_srch">
+          <div class="recent_heading">
+            <h5>ログイン方法一覧</h5>
+          </div>
+        </div>
+        <div class="inbox_chat">
+         
+          
+          <div class="chat_list">
+            <div class="chat_people">
+              <div class="chat_ib">
+                <p class="text-center"><a href="{% url 'social:begin' 'google-oauth2' %}">Googleアカウントでログイン</a></p>         
+              </div>
+            </div>
+          </div>
+
+          <div class="chat_list">
+            <div class="chat_people">
+              <div class="chat_ib">
+                <p class="text-center"><a href="/accounts/login/">メールアドレスでログイン</a></p>
+              </div>
+            </div>
+          </div>
+
+          
+          </div>
+      </div>
+    </div>
+
+
+    <!-- <h2>サービスを選択してログイン</h2> -->
+
+    <!-- <ul>
+      <li><a href="{% url 'social:begin' 'google-oauth2' %}">Googleアカウントでログイン</a></li>
+    </ul>
+
+    <ul>
+      <li><a href="/accounts/login/">メールアドレスでログイン</a></li>
+    </ul> -->
+  
+  
+    <!-- <a href="{% url 'index' %}">戻る</a> -->
+
+
+<!-- <section class="vh-lg-100 mt-5 mt-lg-0 bg-soft d-flex align-items-center"> -->
+
+  <!-- <div class="container">
+      <br>
+      <br>
+      <br>
+      <p class="text-center"><a href="{% url 'social:begin' 'google-oauth2' %}">Googleアカウントでログイン</a></p>
+      <p class="text-center"><a href="/accounts/login/">メールアドレスでログイン</a></p>
+    </div> -->
+
+<!-- </section> -->
+
+{% endblock %}
